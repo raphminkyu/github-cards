@@ -16,7 +16,10 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.10.2",
+    "@material-ui/icons": "^4.9.1",
     "mongodb": "^3.5.9",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "node-sass": "^4.14.1",
+    "sass": "^1.26.9"
   }
 }

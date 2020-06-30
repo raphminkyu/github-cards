@@ -56,15 +56,11 @@ const MainProfile = () => {
     }, [])
     
 
-
-    {console.log(user)}
-    {console.log(user.length)}
-
+    if(!user){
+        return (<div></div>)
+    }
     return(
-            <div>
-                {user && user.length!=0 ? (
-
-                    <Paper id = "main" className = {classes.main}>
+            <Paper id = "main" className = {classes.main}>
                     {/* {console.log(gitAPI)} */}
             
                     <Avatar
@@ -106,13 +102,9 @@ const MainProfile = () => {
                         </div>
                     </div>
             
-                </Paper>
-                ): (
-                    <div>
-                        Loading
-                    </div>
-                )}
-            </div>
+        </Paper>
+       
+         
 
        
     )
