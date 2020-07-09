@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import {Paper, List, ListItem, ListItemIcon, Box} from '@material-ui/core';
+import {Paper, List, ListItem, ListItemIcon} from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import { useEffect } from 'react';
 
+import Repo from "../Repo/Repo"
 
 import "./Namecard.scss"
 
@@ -22,25 +23,38 @@ const useStyles = makeStyles((theme) => ({
         // borderRadius: "10%",
     }
   }));
-const Namecard = () => {
+  const postClick =()=>{
+      fetch("http://localhost:9000/clicks",{
+        method: 'post',
+        body:{
+            "no":0
+        }
+      })
+        .then(res=>console.log(res)).catch(e=>console.log(e))
+  }
+const Namecard = (props) => {
 
     const classes = useStyles();
-
-    const [user, setUser]= useState([]);
-
-    useEffect(()=>{
-        fetch("http://localhost:9000/testAPI")
-        .then(res=>res.json())
-        .then(res=>setUser(res))
-        .then(res=>console.log(res))
-    }, [])
+    // const [user, setUser]= useState([]);
+    const {user: [user, setUser]} = {user: useState(false), ...(props.state||{})}
+    const {repoBool: [repoBool, setRepoBool]} = {repoBool: useState(false), ...(props.state||{})}
     
+    const renderRepo = ()=>{
+        setRepoBool(true)
+        
+    }
     if(!user){
-        return (<div></div>)
+        console.log(user)
+        return (<div>nop</div>)
     }
     return(
+        <div>
         <Paper className = "main" >
-            <div className=  "overlapBlock"></div>
+            <div className=  "overlapBlock">
+                <a className = "gitIcon" href = {user.html_url} onClick = {postClick}>        
+                    <GitHubIcon style = {{color:"white"}} />           
+                </a>
+            </div>
             <div className = "profile in1">
                 
                 <div className = "in2">
@@ -60,7 +74,7 @@ const Namecard = () => {
                     <List 
                     classes ={{root: classes.horList}}
                      className = "list">
-                        <ListItem button className = "listItem">                
+                        <ListItem button className = "listItem" onClick = {renderRepo}>                
                             <div className = "fieldNum">{user.public_repos}</div>
                             <div className = "fieldName">Repo</div>
                         </ListItem>
@@ -73,34 +87,13 @@ const Namecard = () => {
                             <div className = "fieldName">Followers</div>
                         </ListItem> 
                     </List>
-                  
+                 
                 </Paper>
 
-                {/* <List>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <GitHubIcon/>
-                        </ListItemIcon>
-                        Repo
-                    </ListItem>
-                    <ListItem button>
-                        Gist
-                    </ListItem>
-                    <ListItem button>
-                        Followers
-                    </ListItem>
-                    <ListItem button>
-                        Link
-                    </ListItem>
-                    <ListItem button>
-                        email
-                    </ListItem>
-                </List> */}
             </div>
-            {/* <div className = "lastlast in1">
 
-            </div> */}
         </Paper>
+        </div>
        
          
 

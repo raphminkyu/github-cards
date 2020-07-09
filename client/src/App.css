@@ -1,0 +1,13 @@
+.App{
+    position: relative;
+    top:400px;
+    width: 300px ;
+    height: 335px ;
+}
+.close{
+    /* position:absolute; */
+    /* top:5px;
+    right: 20px;
+    width:24px;
+    height:24px; */
+}

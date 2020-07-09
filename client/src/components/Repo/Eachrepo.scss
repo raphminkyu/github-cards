@@ -1,0 +1,44 @@
+.repo{
+    position: relative;
+    width:90%;
+    margin:auto;
+    height:80px;
+    margin-bottom: 10px;
+
+    .overflow{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width:230px;
+    }
+    .fields{
+        padding: 10px 20px;
+        text-align: left;
+
+    }
+    a{  
+        font-size: 18px;
+        font-weight: bold;
+        text-decoration: none; 
+        color:#0366d6;
+       
+    }
+    .description{
+        color:#666666; 
+        height:15px;
+        margin-top: 5px;
+        font-size:12px;
+    }
+    .tag{
+        position: absolute;
+        bottom:10px;
+        .icon{
+            height:15px;
+            width:15px;
+            margin-right:5px;
+        }
+        font-size:12px;
+        display:flex;
+        align-items: 'center';
+    }
+ 
+}

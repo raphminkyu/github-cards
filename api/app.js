@@ -1,3 +1,5 @@
+var mongoStart = require("./mongo")
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -5,8 +7,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var clicksRouter = require('./routes/clicks');
+var reposRouter = require('./routes/repos');
 var testAPIRouter = require('./routes/testAPI');
 
 var app = express();
@@ -22,8 +24,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/clicks', clicksRouter);
+app.use('/repos', reposRouter);
 app.use('/testAPI', testAPIRouter);
 
 // catch 404 and forward to error handler
@@ -41,5 +43,13 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.get('/testAPI', function (req, res) {
+  res.send('hello world')
+})
+// app.post('/', (req, res) => {
+//   res.json(req.body);
+// });
+// mongoStart().catch(console.error);
 
 module.exports = app;
