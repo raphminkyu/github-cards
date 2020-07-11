@@ -1,4 +1,5 @@
-var mongoStart = require("./mongo")
+// var client = require("./mongo")
+var mongoFunctions = require("./mongo")
 
 var createError = require('http-errors');
 var express = require('express');
@@ -10,6 +11,8 @@ var cors = require('cors');
 var clicksRouter = require('./routes/clicks');
 var reposRouter = require('./routes/repos');
 var testAPIRouter = require('./routes/testAPI');
+var mongoRouter = require("./routes/mongo")
+const bodyParser = require("body-parser");
 
 var app = express();
 
@@ -27,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/clicks', clicksRouter);
 app.use('/repos', reposRouter);
 app.use('/testAPI', testAPIRouter);
+app.use('/mongo', mongoRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -36,7 +40,7 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
-  res.locals.message = err.message;
+  // res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
@@ -50,6 +54,7 @@ app.get('/testAPI', function (req, res) {
 // app.post('/', (req, res) => {
 //   res.json(req.body);
 // });
-// mongoStart().catch(console.error);
+username = "raphminkyu"
+mongoFunctions.mongoStart(username).catch(console.error);
 
 module.exports = app;

@@ -23,15 +23,27 @@ const useStyles = makeStyles((theme) => ({
         // borderRadius: "10%",
     }
   }));
-  const postClick =()=>{
+
+  const postClick =(res)=>{
+
+    res.gitCount =  res.gitCount+1
+
       fetch("http://localhost:9000/clicks",{
         method: 'post',
-        body:{
-            "no":0
-        }
-      })
-        .then(res=>console.log(res)).catch(e=>console.log(e))
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(res)
+      }).then(
+          res=>
+          console.log("res" + res)
+      )
+        .catch(e=>console.log(e))
   }
+  const getClick =()=>{
+    fetch("http://localhost:9000/mongo")
+      .then(res=>res.json())
+      .then(res=>postClick(res))
+      .catch(e=>console.log(e))
+}
 const Namecard = (props) => {
 
     const classes = useStyles();
@@ -51,7 +63,7 @@ const Namecard = (props) => {
         <div>
         <Paper className = "main" >
             <div className=  "overlapBlock">
-                <a className = "gitIcon" href = {user.html_url} onClick = {postClick}>        
+                <a className = "gitIcon" href = {user.html_url} onClick = {getClick} target="_blank">        
                     <GitHubIcon style = {{color:"white"}} />           
                 </a>
             </div>

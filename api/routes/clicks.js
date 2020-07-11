@@ -1,9 +1,21 @@
 var express = require('express');
 var router = express.Router();
+var mongoFunctions =require("../mongo.js")
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+
+/* POST home page. */
+router.post('/', function(req, res, next) {
+  const db = mongoFunctions.client.db("github").collection("byUsername")
+  console.log(req.body)
+  db.updateOne(
+    // filter
+      {"_id":req.body._id},
+      {$set: {"gitCount": req.body.gitCount}}
+      // "gitCount":req.body.gitCount
+
+    )
+  .then(console.log("updated"))
+  .catch(e=>console.log(e))
 });
 
 // app.post('/', (req, res) => {
