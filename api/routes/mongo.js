@@ -11,10 +11,10 @@ router.get('/', function(req, res, next) {
           res.send(result[0]);
         //   return result;
         }else{
-            // console.log("nop")
             const obj = {
                 _id: username,
-                gitCount:0
+                gitCount:0,
+                repo:[]
             }
             db.insertOne(obj, function(err, res) {
                 if (err) throw err;

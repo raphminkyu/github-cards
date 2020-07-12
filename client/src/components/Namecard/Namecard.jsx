@@ -31,7 +31,10 @@ const useStyles = makeStyles((theme) => ({
       fetch("http://localhost:9000/clicks",{
         method: 'post',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(res)
+        body: JSON.stringify({
+            type:"github",
+            content:res
+        })
       }).then(
           res=>
           console.log("res" + res)

@@ -4,7 +4,6 @@ import "./Eachrepo.scss"
 import CodeIcon from '@material-ui/icons/Code';
 
 const Eachrepo = (props)=>{
-    console.log(props)
     return(
         <Paper className = "repo">
             <div className = "fields">

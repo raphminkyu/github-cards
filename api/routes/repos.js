@@ -4,7 +4,7 @@ var router = express.Router();
 const fetch = require('node-fetch');
 router.get('/', function(req, res, next) {
 
-    const gitAPI = "https://api.github.com/users/raphminkyu/repos"
+    const gitAPI = `https://api.github.com/users/${username}/repos`
     const callFetch = fetch(gitAPI)
         .then(resp=>resp.text())
         .then(resp => res.send(resp))

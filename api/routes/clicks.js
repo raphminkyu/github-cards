@@ -7,15 +7,41 @@ var mongoFunctions =require("../mongo.js")
 router.post('/', function(req, res, next) {
   const db = mongoFunctions.client.db("github").collection("byUsername")
   console.log(req.body)
-  db.updateOne(
-    // filter
-      {"_id":req.body._id},
-      {$set: {"gitCount": req.body.gitCount}}
-      // "gitCount":req.body.gitCount
+  console.log(req.body.content)
+  if(req.body.type === "github"){
+    db.updateOne(
+      // filter
+        {"_id":req.body.content._id},
+        {$set: {"gitCount": req.body.content.gitCount}}
+        // "gitCount":req.body.gitCount
+  
+      )
+    .then(console.log("updated"))
+    .catch(e=>console.log("error in updating gitCount"+ e))
+  }else{
+  //   db.insertOne(
+  //     req.body.content
+  // )
+    db.updateOne(
+      // filter
+        {
+          "_id":req.body.content._id
+        },
+        { 
+          $set: {"repo": req.body.content.repo}},
+        {
+          upsert: true,
+          // multi: true,
+          // arrayFilters: [ { "element.repo":  req.body.content.repo.repoID} ]
+        }
+        // "gitCount":req.body.gitCount
+  
+      )
+    .then(console.log("updated repo"))
+    .catch(e=>console.log("error in updating gitCount"+ e))
 
-    )
-  .then(console.log("updated"))
-  .catch(e=>console.log(e))
+  }
+  
 });
 
 // app.post('/', (req, res) => {

@@ -17,13 +17,55 @@ const Repo = (props) => {
     const renderRepo = ()=>{
         setRepoBool(false)
     }
+    const postClick =(res, id, name)=>{
+        
+        var repoSearch = "";
+        for(var i =0; i<res.repo.length; i++){
+            if(res.repo[i].repoID === id){
+                repoSearch = res.repo[i]
+                repoSearch.count = repoSearch.count+1
+                break;
+            }
+        }
+        //contains
+        if(repoSearch === ""){
+            res.repo.push(
+                {
+                    repoID:id,
+                    repoName: name,
+                    count:1
+                }
+            )
+        }
+          fetch("http://localhost:9000/clicks",{
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                type:"repo",
+                content:res
+            })
+          }).then(
+              res=>
+              console.log("res" + res)
+          )
+            .catch(e=>console.log(e))
+      }
+
+    const getClick = (id, name)=>{
+        fetch("http://localhost:9000/mongo")
+        .then(res=>res.json())
+        .then(res=>postClick(res, id, name))
+        .catch(e=>console.log(e))
+    }
   
     const RepoList = ()=>{
       
        if(repos.length !== 0){
         return(
             repos.map((x) => (
-                <Eachrepo key = {x.id} repo = {x} />
+                <div key = {x.id}  onClick = {()=>getClick(x.id, x.name)}>
+                    <Eachrepo repo = {x} />
+                </div>
             ))
         )
        }else{
