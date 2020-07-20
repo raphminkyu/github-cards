@@ -1,5 +1,4 @@
 const dotenv = require('dotenv/config');
-const axios = require('axios');
 const {MongoClient} = require('mongodb');
 
 const uri = `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0-vgq33.mongodb.net/<dbname>?retryWrites=true&w=majority`
